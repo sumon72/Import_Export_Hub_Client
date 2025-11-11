@@ -78,7 +78,7 @@ const AllProduct = () => {
 
                             {/* See Details Button */}
                             <NavLink
-                                to={`/getsingleproduct/${prd._id}`}
+                                to={`/productdetails/${prd._id}`}
                                 className="mt-auto w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition text-center"
                             >
                                 See Details

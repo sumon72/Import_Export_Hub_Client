@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: "getsingleproduct/:id",
+                path: "productdetails/:id",
                 element: (
                     <ProtectedRoute>
                         <ProductDetails />

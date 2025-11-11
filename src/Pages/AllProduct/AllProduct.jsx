@@ -3,39 +3,40 @@ import toast from 'react-hot-toast';
 import Rating_Icon from "../../assets/icon-ratings.png";
 import { NavLink } from "react-router";
 import api from "../../api/axiosInstance";
-const RecentProduct = () => {
+import Loader from "../../Component/Loader/Loader.jsx"
+const AllProduct = () => {
 
-    const [Recentproducts, setRecentproducts] = useState([]);
+    const [AllProduct, setAllProduct] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const MostRecentProducts = async () => {
+        MostRecentProducts();
+    }, []);
+
+    const MostRecentProducts = async () => {
             try {
-                const response = await api.get("/recentProducts");
-               
-                setRecentproducts(response.data);
+                const response = await api.get("/allproducts");
+                setAllProduct(response.data);
             } catch (error) {
                 toast.error(error.message || "Network failed");
             } finally {
+
                 setLoading(false);
             }
         };
 
-        MostRecentProducts();
-    }, []);
-
-
+    if (loading) return <Loader />;
 
     return (
         <>
             <section className="py-16 px-4 text-center bg-gray-50">
-                <h1 className="text-4xl font-bold text-primary mb-4">Most Recent Products</h1>
+                <h1 className="text-4xl font-bold text-primary mb-4">All Products</h1>
                 <p className="mt-2 text-gray-600">
-                    Explore our latest products with detailed info.
+                    Explore our products with detailed info.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10 max-w-6xl mx-auto">
-                    {Recentproducts.map((prd, i) => (
+                    {AllProduct.map((prd, i) => (
                         <div
                             key={i}
                             className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300 p-5 flex flex-col"
@@ -94,4 +95,4 @@ const RecentProduct = () => {
     );
 };
 
-export default RecentProduct;
+export default AllProduct;

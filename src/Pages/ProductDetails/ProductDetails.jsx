@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { useAuth } from "../../context/AuthContext.jsx";
 import toast from 'react-hot-toast';
 import Loader from "../../Component/Loader/Loader.jsx";
 import api from "../../api/axiosInstance";
 const ProductDetails = () => {
     const { id } = useParams();
-
+    const { user, logout } = useAuth();
     const [getProductDetails, setProductDetails] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    
+    
     useEffect(() => {
         GetProductDetails(id);
     }, []);
 
     const GetProductDetails = async (id) => {
         try {
-            const response = await api.get(`/getsingleproduct/${id}`); 
+            const token = user ? await user.getIdToken() : null;
+            const response = await api.get(`/getsingleproduct/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
             setProductDetails(response.data);
         } catch (error) {
             toast.error(error.message || "Network failed");

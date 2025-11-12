@@ -12,6 +12,7 @@ import ProtectedRoute from "../Routes/ProtectedRoute.jsx";
 import MyProfile from '../Pages/MyProfile/MyProfile.jsx';
 import ForgotPassword from '../Pages/ForgotPassword/ForgotPassword.jsx';
 import MyImports from '../Pages/MyImports/MyImports.jsx';
+import MyExports from '../Pages/MyExports/MyExports.jsx';
 
 export const router = createBrowserRouter([
     {
@@ -63,7 +64,14 @@ export const router = createBrowserRouter([
                     </ProtectedRoute>
                 ),
             },
-
+            {
+                path: "myexports",
+                element: (
+                    <ProtectedRoute>
+                        <MyExports />
+                    </ProtectedRoute>
+                ),
+            },
             {
                 path: "*",
                 element: <ErrorPage />,

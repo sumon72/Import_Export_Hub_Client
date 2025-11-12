@@ -71,6 +71,14 @@ const NavBar = () => {
                     >
                         My Imports
                     </NavLink>
+                      <NavLink
+                        to="/myexports"
+                        className={({ isActive }) =>
+                            `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
+                        }
+                    >
+                        My Exports
+                    </NavLink>
                     {user ? (<>
                         <NavLink
                             to="/myprofile"
@@ -184,6 +192,15 @@ const NavBar = () => {
                             }
                         >
                             My Imports
+                        </NavLink>
+
+                         <NavLink
+                            to="/myexports"
+                            className={({ isActive }) =>
+                                `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
+                            }
+                        >
+                            My Exports
                         </NavLink>
 
                         {user && (

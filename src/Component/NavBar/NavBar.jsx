@@ -7,7 +7,6 @@ import { useSpring, animated } from '@react-spring/web';
 const NavBar = () => {
     const { user, logout } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     const [styles, api] = useSpring(
         () => ({
             x: 0,
@@ -63,6 +62,14 @@ const NavBar = () => {
                         }
                     >
                         All Products
+                    </NavLink>
+                     <NavLink
+                        to="/myimports"
+                        className={({ isActive }) =>
+                            `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
+                        }
+                    >
+                        My Imports
                     </NavLink>
                     {user ? (<>
                         <NavLink
@@ -169,6 +176,14 @@ const NavBar = () => {
                             }
                         >
                             All Products
+                        </NavLink>
+                         <NavLink
+                            to="/myimports"
+                            className={({ isActive }) =>
+                                `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
+                            }
+                        >
+                            My Imports
                         </NavLink>
 
                         {user && (

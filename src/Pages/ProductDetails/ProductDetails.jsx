@@ -9,8 +9,8 @@ const ProductDetails = () => {
     const { user, logout } = useAuth();
     const [getProductDetails, setProductDetails] = useState([]);
     const [loading, setLoading] = useState(true);
-    
-    
+
+
     useEffect(() => {
         GetProductDetails(id);
     }, []);
@@ -19,10 +19,11 @@ const ProductDetails = () => {
         try {
             const token = user ? await user.getIdToken() : null;
             const response = await api.get(`/getsingleproduct/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             setProductDetails(response.data);
         } catch (error) {
             toast.error(error.message || "Network failed");
@@ -32,87 +33,154 @@ const ProductDetails = () => {
         }
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [quantity, setQuantity] = useState(1);
+
+    const handleImport = () => {
+        if (quantity > getProductDetails?.availableQuantity) {
+            toast.error("Please set Less than Or Equal Available Quantity!");
+            return;
+        }
+
+        ImportProduct({
+            _id: getProductDetails._id,
+            productImage: getProductDetails.productImage,
+            productName: getProductDetails.productName,
+            price: getProductDetails.price,
+            originCountry: getProductDetails.originCountry,
+            rating: getProductDetails.rating,
+            availableQuantity: quantity,
+            category:getProductDetails.category,
+            email: user.email,
+        });
+        setIsModalOpen(false);
+    };
+
+    const ImportProduct = async (data) => {
+        try {
+            const token = user ? await user.getIdToken() : null;
+            const response = await api.post('/importproduct', data,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );  
+             GetProductDetails(id);
+            toast.success(response.data.message);
+        } catch (error) {
+            toast.error(error.message || "Network failed");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     if (loading) return <Loader />;
     return (
         <>
-            <section className="py-16">
-                <div className="max-w-5xl mx-auto px-6">
-                    {/* Service Image & Details */}
-                    <div className="flex flex-col lg:flex-row gap-8">
+            <section className="py-16 bg-base-100">
+                <div className="max-w-6xl mx-auto px-6">
+                    <div className="flex flex-col lg:flex-row gap-10 items-center">
+                        {/* Product Image */}
                         <img
-                            src={getProductDetails.productImage}
-                            alt={getProductDetails.productName}
-                            className="w-full lg:w-1/2 h-80 object-cover rounded-lg shadow-lg"
+                            src={getProductDetails?.productImage}
+                            alt={getProductDetails?.productName}
+                            className="w-full lg:w-1/2 h-96 object-cover rounded-2xl shadow-xl"
                         />
-                        <div className="lg:w-1/2 flex flex-col justify-between">
-                            <div>
-                                <h1 className="text-3xl font-bold text-primary mb-3">
-                                    {getProductDetails.productName}
-                                </h1>
-                                <p className="text-sm mb-2">
-                                    <span className="font-semibold">Country:</span>{" "}
-                                    {getProductDetails.originCountry}
+
+                        {/* Product Info */}
+                        <div className="lg:w-1/2 space-y-5">
+                            <h1 className="text-4xl font-bold text-primary">
+                                {getProductDetails?.productName}
+                            </h1>
+
+                            <div className="grid grid-cols-2 gap-3 text-sm text-gray-600">
+                                <p>
+                                    <span className="font-semibold text-gray-800">Country:</span>{" "}
+                                    {getProductDetails?.originCountry}
                                 </p>
-                                <p className="text-sm mb-2">
-                                    <span className="font-semibold">Email:</span>{" "}
-                                    {/* {getProductDetails.providerEmail} */}
+                                <p>
+                                    <span className="font-semibold text-gray-800">Category:</span>{" "}
+                                    {getProductDetails?.category}
                                 </p>
-                                <p className="text-sm mb-2">
-                                    <span className="font-semibold">Category:</span>{" "}
-                                    {/* {getProductDetails.category} */}
+                                <p>
+                                    <span className="font-semibold text-gray-800">Price:</span> $
+                                    {getProductDetails?.price}
                                 </p>
-                                <p className="text-sm mb-2">
-                                    <span className="font-semibold">Price:</span> ${getProductDetails.price}
+                                <p>
+                                    <span className="font-semibold text-gray-800">Rating:</span>{" "}
+                                    {getProductDetails?.rating} ⭐
                                 </p>
-                                <p className="text-sm mb-2">
-                                    <span className="font-semibold">Rating:</span> {getProductDetails.rating} ⭐
+                                <p className="col-span-2">
+                                    <span className="font-semibold text-gray-800">
+                                        Available Quantity:
+                                    </span>{" "}
+                                    {getProductDetails?.availableQuantity}
                                 </p>
-                                <p className="text-sm mb-6">
-                                    <span className="font-semibold">Available Quantity:</span>{" "}
-                                    {getProductDetails.availableQuantity}
-                                </p>
-                                {/* <p >{getProductDetails.description}</p> */}
                             </div>
 
+                            <p className="text-gray-700 leading-relaxed">
+                                {getProductDetails?.description}
+                            </p>
 
-                        </div>
-                    </div>
-                    <div>
-                        {/* Booking Form */}
-                        {/* <form
-                            className="mt-6 bg-white p-6 rounded-lg shadow-md"
-                             onSubmit={handleSubmit}
-                        >
-                            <h2 className="text-xl font-semibold mb-4">Book Service</h2>
-                            <div className="flex flex-col gap-4">
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    placeholder="Your Name"
-                                    className="input input-bordered w-full"
-                                    required
-                                />
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="Your Email"
-                                    className="input input-bordered w-full"
-                                    required
-                                />
+                            {/* Import Button */}
+                            <div className="pt-6">
                                 <button
-                                    type="submit"
-                                    className="btn btn-primary w-full mt-2"
+                                    className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
+                                    onClick={() => setIsModalOpen(true)}
                                 >
-                                    Book Now
+                                    Import Now
                                 </button>
                             </div>
-                        </form> */}
+                        </div>
                     </div>
                 </div>
+
+                {/* DaisyUI Modal */}
+                {isModalOpen && (
+                    <dialog open className="modal modal-bottom sm:modal-middle">
+                        <div className="modal-box rounded-2xl">
+                            <h3 className="font-bold text-lg mb-4 text-gray-800">
+                                Set Quantity
+                            </h3>
+                            <p className="mb-4 text-gray-600">
+                                Enter the quantity you want to import for{" "}
+                                <span className="font-semibold">
+                                    {getProductDetails?.productName}
+                                </span>
+                                .
+                            </p>
+
+                            <input
+                                type="number"
+                                min="1"
+                                value={quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                                className="input input-bordered w-full mb-6"
+                            />
+
+                            <div className="modal-action">
+                                <button
+                                    className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
+                                    onClick={() => setIsModalOpen(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
+                                    onClick={handleImport}
+                                >
+                                    Confirm Import
+                                </button>
+                            </div>
+                        </div>
+                        <form method="dialog" className="modal-backdrop">
+                            <button onClick={() => setIsModalOpen(false)}>close</button>
+                        </form>
+                    </dialog>
+                )}
             </section>
         </>
     );

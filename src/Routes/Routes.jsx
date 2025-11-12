@@ -11,6 +11,7 @@ import AllProduct from "../Pages/AllProduct/AllProduct.jsx";
 import ProtectedRoute from "../Routes/ProtectedRoute.jsx";
 import MyProfile from '../Pages/MyProfile/MyProfile.jsx';
 import ForgotPassword from '../Pages/ForgotPassword/ForgotPassword.jsx';
+import MyImports from '../Pages/MyImports/MyImports.jsx';
 
 export const router = createBrowserRouter([
     {
@@ -51,6 +52,14 @@ export const router = createBrowserRouter([
                 element: (
                     <ProtectedRoute>
                         <ProductDetails />
+                    </ProtectedRoute>
+                ),
+            },
+            {
+                path: "myimports",
+                element: (
+                    <ProtectedRoute>
+                        <MyImports />
                     </ProtectedRoute>
                 ),
             },

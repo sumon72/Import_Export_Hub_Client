@@ -1,8 +1,8 @@
 import { useState,useEffect } from "react";
 import Banner from "../../Component/Banner/Banner.jsx"
 import RecentProduct from "../../Component/RecentProduct/RecentProduct.jsx"
-import WinterCareTips from "../../Component/WinterCareTips/WinterCareTips.jsx"
-import MeetOurVets from "../../Component/MeetOurVets/MeetOurVets.jsx"
+import ExportImportSolution from "../../Component/ExportImportSolution/ExportImportSolution.jsx"
+import LogisticsExperts from "../../Component/LogisticsExperts/LogisticsExperts.jsx"
 import Loader from "../../Component/Loader/Loader.jsx"
 const Root = () => {
     const [loading, setLoading] = useState(true);
@@ -19,8 +19,8 @@ const Root = () => {
             <div>
                 <Banner></Banner>
                 <RecentProduct></RecentProduct>
-                <WinterCareTips></WinterCareTips>
-                <MeetOurVets></MeetOurVets>
+                <ExportImportSolution></ExportImportSolution>
+                <LogisticsExperts></LogisticsExperts>
             </div>
 
         </>

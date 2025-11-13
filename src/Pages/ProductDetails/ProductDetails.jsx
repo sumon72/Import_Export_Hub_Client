@@ -163,7 +163,7 @@ const ProductDetails = () => {
 
                             <div className="modal-action">
                                 <button
-                                    className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
+                                    className="btn  btn-sm mt-2 text-white btn-neutral rounded-sm text-center"
                                     onClick={() => setIsModalOpen(false)}
                                 >
                                     Cancel

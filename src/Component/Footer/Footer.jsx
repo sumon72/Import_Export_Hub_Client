@@ -13,8 +13,8 @@ const Footer = () => {
                 src={logo}
                 alt="Logo"
                 className="rounded-full object-cover"
-                width={80}
-                height={80}
+                width={60}
+                height={60}
               />
               <a className="text-xl font-semibold tracking-wide">
                 Import Export Hub

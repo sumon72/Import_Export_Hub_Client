@@ -194,7 +194,7 @@ const MyExports = () => {
                             {/* Action Buttons */}
                             <div className="flex flex-row items-center space-x-4">
                                 <button
-                                    className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
+                                    className="btn btn-sm mt-2 text-white btn-error rounded-sm text-center"
                                     onClick={() => handleDelete(app._id)}
                                     disabled={deletingId === app._id}
                                 >
@@ -312,13 +312,13 @@ const MyExports = () => {
         "
                             >
                                 <button
-                                    className="btn btn-primary text-white w-full sm:w-auto rounded-md"
+                                    className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
                                     onClick={handleSave}
                                 >
                                     {editingExport ? 'Save Changes' : 'Add Product'}
                                 </button>
                                 <button
-                                    className="btn btn-neutral w-full sm:w-auto rounded-md"
+                                    className="btn btn-sm mt-2 text-white btn-neutral rounded-sm text-center"
                                     onClick={() => setModalOpen(false)}
                                 >
                                     Cancel

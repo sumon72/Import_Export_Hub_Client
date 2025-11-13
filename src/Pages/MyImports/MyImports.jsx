@@ -107,7 +107,7 @@ const MyImports = () => {
                             {/* Action Buttons */}
                             <div className="flex flex-row items-center space-x-4">
                                 <button
-                                    className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
+                                    className="btn btn-sm mt-2 btn-error text-white rounded-sm text-center"
                                     onClick={() => handleDelete(app._id)}
                                     disabled={deletingId === app._id}
                                 >

@@ -139,7 +139,7 @@ const MyProfile = () => {
                             <div className="pt-4 flex justify-center md:justify-start">
                                 <button
                                     type="submit"
-                                    className={`btn btn-primary rounded-sm w-full md:w-auto`}
+                                    className={`btn btn-sm mt-2 text-white btn-primary rounded-sm text-center`}
                                     disabled={saving}
                                 >
                                     {saving ? <Loader /> : 'Update Profile'}

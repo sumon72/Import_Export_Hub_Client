@@ -6,7 +6,7 @@ import api from "../../api/axiosInstance";
 import Loader from "../../Component/Loader/Loader.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 
-const MyExports = () => {
+const AddExport = () => {
     const { user, logout } = useAuth();
     const [myExports, setMyExports] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const MyExports = () => {
         try {
             const email = user.email;
             const token = user ? await user.getIdToken() : null;
-            const response = await api.get(`/getmyexports/${email}`, {
+            const response = await api.get(`/allproducts`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -33,24 +33,24 @@ const MyExports = () => {
     };
 
 
-    const handleDelete = async (id) => {
-        try {
+    // const handleDelete = async (id) => {
+    //     try {
 
-            const token = user ? await user.getIdToken() : null;
-            const response = await api.delete(`/deletemyexports/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            GetMyExportsList();
-            toast.success(response.data.message);
-        } catch (error) {
-            toast.error(error.message || "Network failed");
-        } finally {
+    //         const token = user ? await user.getIdToken() : null;
+    //         const response = await api.delete(`/deletemyexports/${id}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         GetMyExportsList();
+    //         toast.success(response.data.message);
+    //     } catch (error) {
+    //         toast.error(error.message || "Network failed");
+    //     } finally {
 
-            setLoading(false);
-        }
-    };
+    //         setLoading(false);
+    //     }
+    // };
 
 
 
@@ -145,18 +145,18 @@ const MyExports = () => {
     return (
         <>
             <section className="py-16 px-4 bg-base-100 text-center">
-                <h2 className="text-3xl font-bold">My Exports/Products</h2>
+                <h2 className="text-3xl font-bold">Add Exports/Products</h2>
 
                 <div className="max-w-6xl mx-auto flex justify-between mt-10">
                     <div>
                         <span>({myExports.length})</span>
-                        <span> Total Exports/Products</span>
+                        <span> Total Add Exports/Products</span>
                     </div>
                     <button
                         className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
                         onClick={() => handleOpenModal()}
                     >
-                        Add
+                        Add Export
                     </button>
                 </div>
 
@@ -192,7 +192,7 @@ const MyExports = () => {
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex flex-row items-center space-x-4">
+                            {/* <div className="flex flex-row items-center space-x-4">
                                 <button
                                     className="btn btn-sm mt-2 text-white btn-primary rounded-sm text-center"
                                     onClick={() => handleDelete(app._id)}
@@ -207,7 +207,7 @@ const MyExports = () => {
                                 >
                                     Edit
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     ))}
 
@@ -341,4 +341,4 @@ const MyExports = () => {
     );
 };
 
-export default MyExports;
+export default AddExport;

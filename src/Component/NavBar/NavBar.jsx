@@ -63,7 +63,7 @@ const NavBar = () => {
                     >
                         All Products
                     </NavLink>
-                     <NavLink
+                    <NavLink
                         to="/myimports"
                         className={({ isActive }) =>
                             `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
@@ -71,13 +71,21 @@ const NavBar = () => {
                     >
                         My Imports
                     </NavLink>
-                      <NavLink
+                    <NavLink
                         to="/myexports"
                         className={({ isActive }) =>
                             `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
                         }
                     >
                         My Exports
+                    </NavLink>
+                    <NavLink
+                        to="/addexports"
+                        className={({ isActive }) =>
+                            `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
+                        }
+                    >
+                        Add Exports
                     </NavLink>
                     {user ? (<>
                         <NavLink
@@ -185,7 +193,7 @@ const NavBar = () => {
                         >
                             All Products
                         </NavLink>
-                         <NavLink
+                        <NavLink
                             to="/myimports"
                             className={({ isActive }) =>
                                 `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
@@ -194,7 +202,7 @@ const NavBar = () => {
                             My Imports
                         </NavLink>
 
-                         <NavLink
+                        <NavLink
                             to="/myexports"
                             className={({ isActive }) =>
                                 `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
@@ -202,6 +210,15 @@ const NavBar = () => {
                         >
                             My Exports
                         </NavLink>
+                        <NavLink
+                            to="/addexports"
+                            className={({ isActive }) =>
+                                `cursor-pointer transition-colors ${isActive ? "text-[#632EE3] font-semibold" : "hover:text-[#632EE3]"}`
+                            }
+                        >
+                            Add Exports
+                        </NavLink>
+
 
                         {user && (
                             <>
